@@ -24,6 +24,7 @@ import com.trackstudio.secured.SecuredUDFValueBean;
 import com.trackstudio.tools.Null;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import scripts.util.PropertiesUtil;
 
 /**
  * Common class for ITSM configuration
@@ -34,13 +35,7 @@ public class CommonITSM {
     protected static Properties properties = null;
 
     static {
-        try {
-            properties = new Properties();
-            log.error("Read file : " + new File("./").getAbsolutePath());
-            properties.load(new FileReader("itsm.properties"));
-        } catch (IOException e) {
-            log.error("Error", e);
-        }
+        properties = PropertiesUtil.getProperties("itsm.properties");
     }
 
     public static String getProperty(String key) {

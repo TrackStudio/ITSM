@@ -2,6 +2,8 @@ package scripts;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.Log;
+import scripts.util.PropertiesUtil;
 
 import java.util.Properties;
 import java.io.FileReader;
@@ -10,15 +12,8 @@ import java.io.IOException;
 public class CommonScrum {
     public static Log log = LogFactory.getLog(CommonScrum.class);
     private static Properties properties=null;
-
-    {
-        try {
-            properties = new Properties();
-            properties.load(new FileReader("scrum.properties"));
-        } catch (IOException e) {
-            properties = null;
-
-        }
+    static {
+            properties = PropertiesUtil.getProperties("scrum.properties");
     }
 
     protected String SCRUM_SPRINT_STATE_RUN = "297eef00298994cc01298eed0cdf00a7";

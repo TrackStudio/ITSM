@@ -1,6 +1,5 @@
 package scripts;
 
-
 import com.trackstudio.exception.GranException;
 import com.trackstudio.kernel.cache.UserRelatedInfo;
 import com.trackstudio.kernel.manager.KernelManager;
@@ -10,6 +9,7 @@ import com.trackstudio.model.Usersource;
 import com.trackstudio.secured.SecuredUserBean;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import scripts.util.PropertiesUtil;
 
 import java.io.File;
 import java.io.FileReader;
@@ -26,31 +26,20 @@ public class CommonSubscriber {
     protected String SUBSCRIBE_FILTER_ID = null;
     protected static Properties properties = null;
     {
-        try {
-            properties = new Properties();
-            log.error("where TS tries to read a config file : " + new File("./").getAbsolutePath());
-            File file = new File("subscribe.properties");
-            if (!file.exists()) {
-                throw new IllegalStateException("subscribe.properties does not exit!");
-            }
-            properties.load(new FileReader(file));
-            Enumeration enums = properties.propertyNames();
-            log.error("Read properties : ");
-            log.error("------------------------------------");
-            while (enums.hasMoreElements()) {
-                String name = (String) enums.nextElement();
-                log.error(name + " : " + properties.get(name));
-            }
-            log.error("------------------------------------");
+        properties = PropertiesUtil.getProperties("subscribe.properties");
+        Enumeration enums = properties.propertyNames();
+        log.error("Read properties : ");
+        log.error("------------------------------------");
+        while (enums.hasMoreElements()) {
+            String name = (String) enums.nextElement();
+            log.error(name + " : " + properties.get(name));
+        }
+        log.error("------------------------------------");
 
-            FELLOWS_UDF = properties.getProperty("subscribe.udf");
-            SUBSCRIBE_FILTER_ID = properties.getProperty("subscribe.filter.id");
-            if (FELLOWS_UDF == null || SUBSCRIBE_FILTER_ID == null) {
-                throw new IllegalStateException("Script is configured incorrectly! subscribe.udf is empty or subscribe.filter.id is empty");
-            }
-        } catch (IOException e) {
-            properties = null;
-
+        FELLOWS_UDF = properties.getProperty("subscribe.udf");
+        SUBSCRIBE_FILTER_ID = properties.getProperty("subscribe.filter.id");
+        if (FELLOWS_UDF == null || SUBSCRIBE_FILTER_ID == null) {
+            throw new IllegalStateException("Script is configured incorrectly! subscribe.udf is empty or subscribe.filter.id is empty");
         }
     }
 
