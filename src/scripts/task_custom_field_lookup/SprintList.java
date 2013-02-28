@@ -11,6 +11,9 @@ import java.util.ArrayList;
 
 import scripts.CommonScrum;
 
+/**
+ * Выводит список спринтов для выбора
+ */
 public class SprintList extends CommonScrum implements TaskUDFLookupScript{
 
 
@@ -19,13 +22,13 @@ public class SprintList extends CommonScrum implements TaskUDFLookupScript{
         list.add("");
         String category  = SCRUM_SRINT_CATEGORY;
         List<SecuredTaskBean> sprints = AdapterManager.getInstance().getSecuredTaskAdapterManager().getTaskListByQuery(task.getSecure(),
-        "SELECT t.id FROM com.trackstudio.model.Task as t WHERE t.category.id = \'"+category+"\'");
+                "SELECT t.id FROM com.trackstudio.model.Task as t WHERE t.category.id = \'"+category+"\'");
         for (SecuredTaskBean t: sprints){
             if (t.canView() && !t.getStatus().isFinish()){
                 list.add(t.getName()+" [#"+t.getNumber()+"]");
             }
         }
-        
+
 
         return list;
     }

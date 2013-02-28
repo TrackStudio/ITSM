@@ -2,18 +2,26 @@ package scripts;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.logging.Log;
-import scripts.util.PropertiesUtil;
 
 import java.util.Properties;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * Îáùèé êëàññ, â êîòîðîì îïðåäåëÿþòñÿ êîíñòàíòû. Êîíñòàíòû ìîãóò òàêæå ÷èòàòüñÿ èç ôàéëà scrum.properties. Åãî íóæíî ðàçìåñòèòü â ïàïêå ñ TrackStudio
+ */
 public class CommonScrum {
     public static Log log = LogFactory.getLog(CommonScrum.class);
     private static Properties properties=null;
-    static {
-            properties = PropertiesUtil.getProperties("scrum.properties");
+
+    {
+        try {
+            properties = new Properties();
+            properties.load(new FileReader("scrum.properties"));
+        } catch (IOException e) {
+            properties = null;
+
+        }
     }
 
     protected String SCRUM_SPRINT_STATE_RUN = "297eef00298994cc01298eed0cdf00a7";
@@ -31,18 +39,18 @@ public class CommonScrum {
 
     public CommonScrum() {
         if (properties!=null){
-        SCRUM_SPRINT_STATE_RUN = properties.getProperty("scrum.sprint.state.run");
-        SCRUM_TEAM_MEMBER_GROUP = properties.getProperty("scrum.team.member.group");
-        SCRUM_ITEM_OPERATION_ESTIMATE = properties.getProperty("scrum.item.operation.estimate");
-        SCRUM_ITEM_STATE_FINISH = properties.getProperty("scrum.item.state.finish");
-        SCRUM_SRINT_CATEGORY = properties.getProperty("scrum.sprint.category");
-        SCRUM_ITEM_OPERATION_RUN =  properties.getProperty("scrum.item.operation.run");
-        SCRUM_ITEM_OPERATION_STOP = properties.getProperty("scrum.item.operation.stop");
-        SCRUM_ITEM_STATE_READY = properties.getProperty("scrum.item.state.ready");
-        SCRUM_ITEM_STATE_RUN = properties.getProperty("scrum.item.state.run");
-        SCRUM_TEAM_WORKHOURS = properties.getProperty("scrum.team.workhours");
-        SCRUM_SPRINT_OPERATION_RUN = properties.getProperty("scrum.sprint.operation.run");
-        SCRUM_TEAM_SEE_OTHERS = properties.getProperty("scrum.team.see.others");
+            SCRUM_SPRINT_STATE_RUN = properties.getProperty("scrum.sprint.state.run");
+            SCRUM_TEAM_MEMBER_GROUP = properties.getProperty("scrum.team.member.group");
+            SCRUM_ITEM_OPERATION_ESTIMATE = properties.getProperty("scrum.item.operation.estimate");
+            SCRUM_ITEM_STATE_FINISH = properties.getProperty("scrum.item.state.finish");
+            SCRUM_SRINT_CATEGORY = properties.getProperty("scrum.sprint.category");
+            SCRUM_ITEM_OPERATION_RUN =  properties.getProperty("scrum.item.operation.run");
+            SCRUM_ITEM_OPERATION_STOP = properties.getProperty("scrum.item.operation.stop");
+            SCRUM_ITEM_STATE_READY = properties.getProperty("scrum.item.state.ready");
+            SCRUM_ITEM_STATE_RUN = properties.getProperty("scrum.item.state.run");
+            SCRUM_TEAM_WORKHOURS = properties.getProperty("scrum.team.workhours");
+            SCRUM_SPRINT_OPERATION_RUN = properties.getProperty("scrum.sprint.operation.run");
+            SCRUM_TEAM_SEE_OTHERS = properties.getProperty("scrum.team.see.others");
         }
     }
 }

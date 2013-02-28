@@ -18,30 +18,30 @@ public class ScrumNeedEstimation extends CommonScrum implements TaskUDFValueScri
 
     public Object calculate(SecuredTaskBean securedTaskBean) throws GranException {
 
-             ArrayList<SecuredUserBean> userList = AdapterManager.getInstance().getSecuredAclAdapterManager().getUserList(securedTaskBean.getSecure(), securedTaskBean.getId());
-             Collections.sort(userList);
+        ArrayList<SecuredUserBean> userList = AdapterManager.getInstance().getSecuredAclAdapterManager().getUserList(securedTaskBean.getSecure(), securedTaskBean.getId());
+        Collections.sort(userList);
 
-             
-             String cmessageId = SCRUM_ITEM_OPERATION_ESTIMATE;
-             if (cmessageId==null) cmessageId="";
-              // now we have list of team members
+
+        String cmessageId = SCRUM_ITEM_OPERATION_ESTIMATE;
+        if (cmessageId==null) cmessageId="";
+        // now we have list of team members
         boolean alreadyDone = false;
-             for (SecuredMessageBean m :securedTaskBean.getMessages()){
-                 if (m.getMstatus().getId().equals(cmessageId)){
-                     if (m.getBudget()!=null && m.getSubmitterId().equals(securedTaskBean.getSecure().getUserId())){
-                         alreadyDone = true;
-                         break;
-                     }
-                 }
-             }
-             StringBuffer buf = new StringBuffer();
-             if (alreadyDone)
-             buf.append("да");
+        for (SecuredMessageBean m :securedTaskBean.getMessages()){
+            if (m.getMstatus().getId().equals(cmessageId)){
+                if (m.getBudget()!=null && m.getSubmitterId().equals(securedTaskBean.getSecure().getUserId())){
+                    alreadyDone = true;
+                    break;
+                }
+            }
+        }
+        StringBuffer buf = new StringBuffer();
+        if (alreadyDone)
+            buf.append("нет");
         else
-             buf.append("нет");
+            buf.append("да");
 
-             return buf.toString();
-         }
+        return buf.toString();
+    }
 
 
 }
