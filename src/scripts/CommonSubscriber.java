@@ -1,9 +1,14 @@
 package scripts;
 
+import com.trackstudio.app.filter.FValue;
+import com.trackstudio.app.filter.TaskFValue;
+import com.trackstudio.common.FieldMap;
 import com.trackstudio.exception.GranException;
 import com.trackstudio.kernel.cache.UserRelatedInfo;
 import com.trackstudio.kernel.manager.KernelManager;
 import com.trackstudio.kernel.manager.SafeString;
+import com.trackstudio.model.Filter;
+import com.trackstudio.model.Fvalue;
 import com.trackstudio.model.Notification;
 import com.trackstudio.model.Usersource;
 import com.trackstudio.secured.SecuredUserBean;
@@ -51,7 +56,13 @@ public class CommonSubscriber {
     }
 
     protected void subscribe(UserRelatedInfo user, String taskId) throws GranException {
-        KernelManager.getFilter().setNotification(SafeString.createSafeString("auto"), SUBSCRIBE_FILTER_ID, user.getId(), null, taskId, user.getTemplate());
+        Filter filter = KernelManager.getFind().findFilter(SUBSCRIBE_FILTER_ID);
+        FValue fValue = new TaskFValue();
+        fValue.putItem(FieldMap.TASK_NUMBER.getFilterKey(), FValue.EQ + KernelManager.getFind().findTask(taskId).getNumber());
+        String filterId = KernelManager.getFilter().createTaskFilter(SafeString.createSafeString("auto"), SafeString.createSafeString(""), false, filter.getTask().getId(), user.getId(), "");
+        KernelManager.getFilter().setFValue(filterId, fValue);
+        KernelManager.getFilter().setNotification(SafeString.createSafeString("auto"), filterId, user.getId(), null, taskId, user.getTemplate());
+        log.error("Create notification for user :" + user.getLogin() + "; filterId : " + filterId + "; connection to : " + filter.getTask().getId());
     }
 
     protected void unsubscribe(String taskId, List<String> toRemoveUsers) throws GranException {
