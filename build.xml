@@ -11,7 +11,7 @@
     <property name="src.dir" value="${project.dir}/src"/>
 
     <path id="TrackStudio-ITSM.classpath">
-        <fileset dir="${project.dir}/lib">
+        <fileset dir="${ts-lib}">
             <include name="*.jar"/>
         </fileset>
     </path>
