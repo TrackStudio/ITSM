@@ -3,15 +3,15 @@
     <property environment="env"/>
     <property name="project.dir" value="."/>
     <property name="debuglevel" value="source,lines,vars"/>
-    <property name="target" value="1.6"/>
+    <property name="target" value="1.7"/>
     <property name="version" value="1.2.3"/>
-    <property name="source" value="1.6"/>
+    <property name="source" value="1.7"/>
     <property name="temp.dir" value="${project.dir}/out"/>
     <property name="templates.dir" value="${project.dir}/e-mail"/>
     <property name="src.dir" value="${project.dir}/src"/>
 
     <path id="TrackStudio-ITSM.classpath">
-        <fileset dir="${ts-lib}">
+        <fileset dir="${project.dir}/lib">
             <include name="*.jar"/>
         </fileset>
     </path>

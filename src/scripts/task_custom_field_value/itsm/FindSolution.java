@@ -23,7 +23,7 @@ public class FindSolution extends CommonITSM implements TaskUDFValueScript {
         ArrayList<SecuredSearchTaskItem> results = new ArrayList<SecuredSearchTaskItem>();
         for (Map.Entry e : tasks.entrySet()) {
             Float ratio = (Float) e.getValue();
-            SecuredSearchTaskItem sstask = new SecuredSearchTaskItem(0, ratio, (SecuredTaskBean) e.getKey(), "", "");
+            SecuredSearchTaskItem sstask = new SecuredSearchTaskItem(ratio, (SecuredTaskBean) e.getKey(), "", "");
             results.add(sstask);
         }
         Collections.sort(results);
